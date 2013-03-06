@@ -1,0 +1,26 @@
+{
+  "name": "shomeya/boxapi",
+  "type": "library",
+  "description": "Box API webservice client using Guzzle",
+  "keywords": ["rest", "web service", "client"],
+  "homepage": "http://github.com/shomeya/box_api_client",
+  "license": "GPL-2.0",
+
+  "authors": [
+    {
+      "name": "Michael Prasuhn",
+      "email": "mike@mikeyp.net",
+      "homepage": "http://shomeya.com"
+    }
+  ],
+
+  "require": {
+    "guzzle/guzzle": "3.*"
+  },
+
+  "autoload": {
+    "psr-0": {
+      "BoxAPI": "/"
+    }
+  }
+}
