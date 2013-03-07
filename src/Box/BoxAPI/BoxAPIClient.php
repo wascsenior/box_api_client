@@ -1,6 +1,6 @@
 <?php
 
-namespace BoxAPI;
+namespace Box\BoxAPI;
 
 use Guzzle\Common\Collection;
 use Guzzle\Service\Client;
