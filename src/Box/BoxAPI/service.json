@@ -27,7 +27,14 @@
         },
         "parent": {
           "location": "json",
-          "type": "object"
+          "type": "object",
+          "properties": {
+            "id": {
+              "location": "json",
+              "type": "integer",
+              "required": true
+            }
+          }
         }
       }
     }

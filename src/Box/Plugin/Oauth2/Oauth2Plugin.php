@@ -47,7 +47,7 @@ class Oauth2Plugin implements EventSubscriberInterface
         if (!empty($this->auth_headers))
         {
             foreach ($this->auth_headers as $value) {
-              $request->addHeader('Authorization', $value);
+                $request->addHeader('Authorization', $value);
             }
         }
     }
