@@ -37,15 +37,14 @@ class Oauth2Plugin implements EventSubscriberInterface
     }
 
     /**
-     * Add cookies before a request is sent
+     * Add auth header before a request is sent
      *
      * @param Event $event
      */
     public function onRequestBeforeSend(Event $event)
     {
         $request = $event['request'];
-        if (!empty($this->auth_headers))
-        {
+        if (!empty($this->auth_headers)) {
             foreach ($this->auth_headers as $value) {
                 $request->addHeader('Authorization', $value);
             }
