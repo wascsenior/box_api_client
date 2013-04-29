@@ -64,10 +64,48 @@ class BoxAPIClient extends Client
         return $this->execute($command);
     }
 
+    /**
+     * Copy a folder.
+     *
+     * @param string $id The ID of the folder to be copied.
+     * @param string $parent_id The ID of the destination's parent.
+     * @param string $name Optional name of new folder.
+     * @return array|mixed
+     */
+    public function copyFolder($id, $parent_id, $name = NULL)
+    {
+        $command = $this->getCommand('CopyFolder', array('id' => $id, 'parent' => array('id' => $parent_id), 'name' => $name));
+        return $this->execute($command);
+    }
 
+    /**
+     * Delete a folder.
+     *
+     * @param string $id The ID of the folder to be deleted.
+     * @param boolean $recursive Whether or not to recursively delete files.
+     * @param string $etag Optional etag to send in if-match header.
+     * @return array|mixed
+     */
+    public function deleteFolder($id, $recursive = FALSE, $etag = NULL)
+    {
+        $params = array('id' => $id,  'if-match' => $etag);
+        $params['recursive'] = $recursive ? 'true' : NULL;
+        $command = $this->getCommand('DeleteFolder', $params);
+        return $this->execute($command);
+    }
+
+
+    /**
+     * Upload a file.
+     *
+     * @param string $file The path to the file to be uploaded.
+     * @param string $parent_id The ID of the parent folder.
+     * @return array|mixed
+     */
     public function uploadFile($file, $parent_id)
     {
         $command = $this->getCommand('UploadFile', array('parent_id' => $parent_id, 'filename' => $file));
         return $this->execute($command);
     }
+
 }
