@@ -24,20 +24,50 @@ class BoxAPIClient extends Client
      */
     public static function factory($config = array())
     {
-        $default = array(
-            'base_url' => 'https://api.box.com/2.0/',
-        );
+        $default = array();
         $required = array('token');
         $config = Collection::fromConfig($config, $default, $required);
 
         $client = new self($config->get('base_url'), $config);
         // Attach a service description to the client
-        $description = ServiceDescription::factory(__DIR__ . '/service.json');
+        $description = ServiceDescription::factory(__DIR__ . '/services.php');
         $client->setDescription($description);
 
         $oauth_plugin = new Oauth2Plugin(array('Bearer ' . $config->get('token')));
         $client->addSubscriber($oauth_plugin);
 
         return $client;
+    }
+
+    /**
+     * Get information about a folder.
+     *
+     * @param integer $id The folder ID.
+     * @return array|mixed
+     */
+    public function getFolder($id)
+    {
+        $command = $this->getCommand('GetFolder', array('id' => $id));
+        return $this->execute($command);
+    }
+
+    /**
+     * Create a new folder.
+     *
+     * @param string $name The folder name
+     * @param string $parent_id The parent folder's ID.
+     * @return array|mixed
+     */
+    public function createFolder($name, $parent_id)
+    {
+        $command = $this->getCommand('CreateFolder', array('parent' => array('id' => $parent_id), 'name' => $name));
+        return $this->execute($command);
+    }
+
+
+    public function uploadFile($file, $parent_id)
+    {
+        $command = $this->getCommand('UploadFile', array('parent_id' => $parent_id, 'filename' => $file));
+        return $this->execute($command);
     }
 }
