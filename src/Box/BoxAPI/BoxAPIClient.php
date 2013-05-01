@@ -6,6 +6,8 @@ use Guzzle\Common\Collection;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Box\Plugin\Oauth2\Oauth2Plugin;
+use Zend\Mime\Part;
+use Zend\Mime\Message;
 
 /**
  * My example web service client
@@ -40,14 +42,17 @@ class BoxAPIClient extends Client
     }
 
     /**
-     * Get information about a folder.
+     * Get information about a folder's items.
      *
+     * @param integer $id The folder ID.
+     * @param integer $id The folder ID.
+     * @param integer $id The folder ID.
      * @param integer $id The folder ID.
      * @return array|mixed
      */
-    public function getFolder($id)
+    public function getFolderItems($id, $fields = NULL, $limit = 100, $offset = 0)
     {
-        $command = $this->getCommand('GetFolder', array('id' => $id));
+        $command = $this->getCommand('GetFolderItems', array('id' => $id, 'fields' => $fields, 'limit' => $limit, 'offset' => $offset));
         return $this->execute($command);
     }
 
@@ -61,6 +66,18 @@ class BoxAPIClient extends Client
     public function createFolder($name, $parent_id)
     {
         $command = $this->getCommand('CreateFolder', array('parent' => array('id' => $parent_id), 'name' => $name));
+        return $this->execute($command);
+    }
+
+    /**
+     * Get information about a folder.
+     *
+     * @param integer $id The folder ID.
+     * @return array|mixed
+     */
+    public function getFolder($id)
+    {
+        $command = $this->getCommand('GetFolder', array('id' => $id));
         return $this->execute($command);
     }
 
@@ -94,6 +111,45 @@ class BoxAPIClient extends Client
         return $this->execute($command);
     }
 
+    /**
+     * Updates a folder.
+     *
+     * @param string $id The ID of the folder to be deleted.
+     * @param array $params Parameters to set on the new folder
+     * @param string $etag Optional etag to send in if-match header.
+     * @return array|mixed
+     */
+    public function updateFolder($id, $params = array(), $etag = NULL)
+    {
+        $params['id'] = $id;
+        $params['if-match'] = $etag;
+        $command = $this->getCommand('UpdateFolder', $params);
+        return $this->execute($command);
+    }
+
+    /**
+     * Get a folder's discussions.
+     *
+     * @param integer $id The folder ID.
+     * @return array|mixed
+     */
+    public function getFolderDiscussions($id)
+    {
+        $command = $this->getCommand('GetFolderDiscussions', array('id' => $id));
+        return $this->execute($command);
+    }
+
+    /**
+     * Get a folder's collaborations.
+     *
+     * @param integer $id The folder ID.
+     * @return array|mixed
+     */
+    public function getFolderCollaborations($id)
+    {
+        $command = $this->getCommand('GetFolderCollaborations', array('id' => $id));
+        return $this->execute($command);
+    }
 
     /**
      * Upload a file.

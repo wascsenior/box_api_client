@@ -6,16 +6,31 @@ return array(
 //  'baseUrl' => 'https://api.box.com/2.0/',
   'description' => 'Box.com is a cloud file storage service',
   'operations' => array(
-    'GetFolder' => array(
-      'description' => 'Retrieves the full metadata about a folder, including information about when it was last updated as well as the files and folders contained in it.',
+    'GetFolderItems' => array(
+      'description' => 'Retrieves the files and/or folders contained within this folder without any other metadata about the folder.',
       'httpMethod' => 'GET',
-      'uri' => 'https://api.box.com/2.0/folders/{id}',
+      'uri' => 'https://api.box.com/2.0/folders/{id}/items',
       'parameters' => array(
         'id' => array(
           'description' => 'The ID of the folder to be retrieved',
           'location' => 'uri',
           'type' => 'string',
           'required' => true,
+        ),
+        'fields' => array(
+          'description' => 'Attribute(s) to include in the response',
+          'location' => 'query',
+          'type' => 'string',
+        ),
+        'limit' => array(
+          'description' => 'The number of items to return',
+          'location' => 'query',
+          'type' => 'integer',
+        ),
+        'offset' => array(
+          'description' => 'The item at which to begin the response',
+          'location' => 'query',
+          'type' => 'integer',
         ),
       ),
     ),
@@ -42,6 +57,19 @@ return array(
               'required' => true,
             ),
           ),
+        ),
+      ),
+    ),
+    'GetFolder' => array(
+      'description' => 'Retrieves the full metadata about a folder, including information about when it was last updated as well as the files and folders contained in it.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/folders/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
         ),
       ),
     ),
@@ -97,6 +125,131 @@ return array(
           'description' => 'Whether to delete this folder if it has items inside of it',
           'location' => 'query',
           'type' => 'string',
+        ),
+      ),
+    ),
+    'UpdateFolder' => array(
+      'description' => 'Used to update information about the folder.',
+      'httpMethod' => 'PUT',
+      'uri' => 'https://api.box.com/2.0/folders/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be updated',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'if-match' => array(
+          'description' => 'This is in the ÔetagÕ field of the folder object.',
+          'location' => 'header',
+          'type' => 'string',
+          'sentAs' => 'If-Match'
+        ),
+        'name' => array(
+          'description' => 'The name of the folder',
+          'location' => 'json',
+          'type' => 'string',
+        ),
+        'description' => array(
+          'description' => 'The description of the folder',
+          'location' => 'json',
+          'type' => 'string',
+        ),
+        'parent' => array(
+          'description' => 'The parent folder',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'id' => array(
+              'description' => 'The ID of the parent folder',
+              'location' => 'json',
+              'type' => 'string',
+            ),
+          ),
+        ),
+        'shared_link' => array(
+          'description' => 'An object representing this itemÕs shared link and associated permissions',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'access' => array(
+              'description' => "The level of access required for this shared link. Can be 'open', 'company', 'collaborators'",
+              'location' => 'json',
+              'type' => 'string',
+            ),
+            'unshared_at' => array(
+              'description' => 'The day that this link should be disabled at. Timestamps are rounded off to the given day.',
+              'location' => 'json',
+              'type' => 'string',
+            ),
+            'permissions' => array(
+              'description' => 'The set of permissions that apply to this link',
+              'location' => 'json',
+              'type' => 'object',
+              'properties' => array(
+                'download' => array(
+                  'description' => 'Whether this link allows downloads',
+                  'location' => 'json',
+                  'type' => 'boolean'
+                ),
+                'preview' => array(
+                  'description' => 'Whether this link allows previews',
+                  'location' => 'json',
+                  'type' => 'boolean'
+                ),
+              ),
+            ),
+          ),
+        ),
+        'folder_upload_email' => array(
+          'description' => 'The email-to-upload address for this folder',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'access' => array(
+              'description' => "Can be 'open' or 'collaborators'",
+              'location' => 'json',
+              'type' => 'string',
+            ),
+          ),
+        ),
+        'owned_by' => array(
+          'description' => 'The user who owns the folder.',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'id' => array(
+              'description' => 'The ID of the user, should be your own user ID.',
+              'location' => 'json',
+              'type' => 'string',
+            ),
+          ),
+        ),
+      ),
+    ),
+    'GetFolderDiscussions' => array(
+      'description' => 'Retrieves the discussions on a particular folder, if any exist.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/folders/{id}/discussions',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+      ),
+    ),
+    'GetFolderCollaborations' => array(
+      'description' => 'Use this to get a list of all the collaborations on a folder i.e. all of the users that have access to that folder.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/folders/{id}/collaborations',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
         ),
       ),
     ),
