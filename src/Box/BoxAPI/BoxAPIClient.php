@@ -26,7 +26,7 @@ class BoxAPIClient extends Client
      */
     public static function factory($config = array())
     {
-        $default = array();
+        $default = array('redirect.disable' => true);
         $required = array('token');
         $config = Collection::fromConfig($config, $default, $required);
 
@@ -150,6 +150,58 @@ class BoxAPIClient extends Client
         $command = $this->getCommand('GetFolderCollaborations', array('id' => $id));
         return $this->execute($command);
     }
+
+    /**
+     * Get a folder's collaborations.
+     *
+     * @return array|mixed
+     */
+    public function getTrashItems($fields = NULL, $limit = 100, $offset = 0)
+    {
+        $command = $this->getCommand('GetTrashItems', array('fields' => $fields, 'limit' => $limit, 'offset' => $offset));
+        return $this->execute($command);
+    }
+
+    /**
+     * Get a folder's discussions.
+     *
+     * @param integer $id The folder ID.
+     * @return array|mixed
+     */
+    public function deleteTrashedFolder($id)
+    {
+        $command = $this->getCommand('DeleteTrashedFolder', array('id' => $id));
+        return $this->execute($command);
+    }
+
+    // @TODO Restore trashed folder
+
+    /**
+     * Get a file's metadata.
+     *
+     * @param integer $id The file ID.
+     * @return array|mixed
+     */
+    public function getFile($id)
+    {
+        $command = $this->getCommand('GetFile', array('id' => $id));
+        return $this->execute($command);
+    }
+
+    // @TODO Update file
+
+    /**
+     * Get a file's metadata.
+     *
+     * @param integer $id The file ID.
+     * @return array|mixed
+     */
+    public function downloadFile($id, $version = NULL)
+    {
+        $command = $this->getCommand('DownloadFile', array('id' => $id, 'version' => $version));
+        return $this->execute($command);
+    }
+
 
     /**
      * Upload a file.

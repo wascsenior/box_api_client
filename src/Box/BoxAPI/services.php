@@ -187,12 +187,12 @@ return array(
               'location' => 'json',
               'type' => 'object',
               'properties' => array(
-                'download' => array(
+                'can_download' => array(
                   'description' => 'Whether this link allows downloads',
                   'location' => 'json',
                   'type' => 'boolean'
                 ),
-                'preview' => array(
+                'can_preview' => array(
                   'description' => 'Whether this link allows previews',
                   'location' => 'json',
                   'type' => 'boolean'
@@ -278,7 +278,7 @@ return array(
     'GetTrashedFolder' => array(
       'description' => 'Retrieves an item that has been moved to the trash.',
       'httpMethod' => 'GET',
-      'uri' => 'https://api.box.com/2.0//folders/{id}/trash',
+      'uri' => 'https://api.box.com/2.0/folders/{id}/trash',
       'parameters' => array(
         'id' => array(
           'description' => 'The ID of the folder to be retrieved',
@@ -289,9 +289,9 @@ return array(
       ),
     ),
     'DeleteTrashedFolder' => array(
-      'description' => 'Retrieves an item that has been moved to the trash.',
+      'description' => 'Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.',
       'httpMethod' => 'POST',
-      'uri' => 'https://api.box.com/2.0//folders/{id}',
+      'uri' => 'https://api.box.com/2.0/folders/{id}',
       'parameters' => array(
         'id' => array(
           'description' => 'The ID of the folder to be retrieved',
@@ -304,7 +304,7 @@ return array(
     'RestoreTrashedFolder' => array(
       'description' => 'Restores an item that has been moved to the trash.',
       'httpMethod' => 'DELETE',
-      'uri' => 'https://api.box.com/2.0//folders/{id}',
+      'uri' => 'https://api.box.com/2.0/folders/{id}',
       'parameters' => array(
         'id' => array(
           'description' => 'The ID of the folder to be retrieved',
@@ -335,6 +335,112 @@ return array(
     ),
 
     // Files
+    'GetFile' => array(
+      'description' => 'Used to retrieve the metadata about a file.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/files/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the file to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+      ),
+    ),
+    'UpdateFile' => array(
+      'description' => 'Used to update individual or multiple fields in the file object, including renaming the file, changing itÕs description, and creating a shared link for the file.',
+      'httpMethod' => 'PUT',
+      'uri' => 'https://api.box.com/2.0/files/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the file to be updated',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'if-match' => array(
+          'description' => 'This is in the ÔetagÕ field of the file object.',
+          'location' => 'header',
+          'type' => 'string',
+          'sentAs' => 'If-Match'
+        ),
+        'name' => array(
+          'description' => 'The new name of the file',
+          'location' => 'json',
+          'type' => 'string',
+        ),
+        'description' => array(
+          'description' => 'The new description of the file',
+          'location' => 'json',
+          'type' => 'string',
+        ),
+        'parent' => array(
+          'description' => 'The parent folder',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'id' => array(
+              'description' => 'The ID of the parent folder',
+              'location' => 'json',
+              'type' => 'string',
+            ),
+          ),
+        ),
+        'shared_link' => array(
+          'description' => 'An object representing this itemÕs shared link and associated permissions',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'access' => array(
+              'description' => "The level of access required for this shared link. Can be 'open', 'company', 'collaborators'",
+              'location' => 'json',
+              'type' => 'string',
+            ),
+            'unshared_at' => array(
+              'description' => 'The day that this link should be disabled at. Timestamps are rounded off to the given day.',
+              'location' => 'json',
+              'type' => 'string',
+            ),
+            'permissions' => array(
+              'description' => 'The set of permissions that apply to this link',
+              'location' => 'json',
+              'type' => 'object',
+              'properties' => array(
+                'can_download' => array(
+                  'description' => 'Whether this link allows downloads',
+                  'location' => 'json',
+                  'type' => 'boolean'
+                ),
+                'can_preview' => array(
+                  'description' => 'Whether this link allows previews',
+                  'location' => 'json',
+                  'type' => 'boolean'
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+    'DownloadFile' => array(
+      'description' => 'Retrieves the actual data of the file.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/files/{id}/content',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the file to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'version' => array(
+          'description' => 'The ID specific version of this file to download.',
+          'location' => 'query',
+          'type' => 'string',
+        ),
+      ),
+    ),
     'UploadFile' => array(
       'description' => 'Use the Uploads API to allow users to add a new file.',
       'httpMethod' => 'POST',
