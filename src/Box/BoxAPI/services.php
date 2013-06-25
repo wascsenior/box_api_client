@@ -253,6 +253,88 @@ return array(
         ),
       ),
     ),
+    'GetTrashItems' => array(
+      'description' => 'Retrieves the files and/or folders that have been moved to the trash.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/folders/trash/items',
+      'parameters' => array(
+        'fields' => array(
+          'description' => 'Attribute(s) to include in the response',
+          'location' => 'query',
+          'type' => 'string',
+        ),
+        'limit' => array(
+          'description' => 'The number of items to return',
+          'location' => 'query',
+          'type' => 'integer',
+        ),
+        'offset' => array(
+          'description' => 'The item at which to begin the response',
+          'location' => 'query',
+          'type' => 'integer',
+        ),
+      ),
+    ),
+    'GetTrashedFolder' => array(
+      'description' => 'Retrieves an item that has been moved to the trash.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0//folders/{id}/trash',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+      ),
+    ),
+    'DeleteTrashedFolder' => array(
+      'description' => 'Retrieves an item that has been moved to the trash.',
+      'httpMethod' => 'POST',
+      'uri' => 'https://api.box.com/2.0//folders/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+      ),
+    ),
+    'RestoreTrashedFolder' => array(
+      'description' => 'Restores an item that has been moved to the trash.',
+      'httpMethod' => 'DELETE',
+      'uri' => 'https://api.box.com/2.0//folders/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be retrieved',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'name' => array(
+          'description' => 'The desired name for the folder',
+          'location' => 'json',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'parent' => array(
+          'description' => 'The parent folder',
+          'location' => 'json',
+          'type' => 'object',
+          'properties' => array(
+            'id' => array(
+              'description' => 'The ID of the parent folder',
+              'location' => 'json',
+              'type' => 'string',
+              'required' => true,
+            ),
+          ),
+        ),
+      ),
+    ),
+
+    // Files
     'UploadFile' => array(
       'description' => 'Use the Uploads API to allow users to add a new file.',
       'httpMethod' => 'POST',
