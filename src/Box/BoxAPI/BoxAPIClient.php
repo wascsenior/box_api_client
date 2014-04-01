@@ -216,4 +216,18 @@ class BoxAPIClient extends Client
         return $this->execute($command);
     }
 
+    /**
+     * Delete a file.
+     *
+     * @param integer $id The file ID.
+     * @param string $etag Optional etag to send in if-match header.
+     * @return array|mixed
+     */
+    public function deleteFile($id, $etag = NULL)
+    {
+        $params = array('id' => $id,  'if-match' => $etag);
+        $command = $this->getCommand('DeleteFile', $params);
+        return $this->execute($command);
+    }
+
 }

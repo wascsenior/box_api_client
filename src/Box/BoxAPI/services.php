@@ -116,7 +116,7 @@ return array(
           'required' => true,
         ),
         'if-match' => array(
-          'description' => 'This is in the ÔetagÕ field of the folder object.',
+          'description' => 'This is in the "etag" field of the folder object.',
           'location' => 'header',
           'type' => 'string',
           'sentAs' => 'If-Match'
@@ -140,7 +140,7 @@ return array(
           'required' => true,
         ),
         'if-match' => array(
-          'description' => 'This is in the ÔetagÕ field of the folder object.',
+          'description' => 'This is in the "etag" field of the folder object.',
           'location' => 'header',
           'type' => 'string',
           'sentAs' => 'If-Match'
@@ -168,7 +168,7 @@ return array(
           ),
         ),
         'shared_link' => array(
-          'description' => 'An object representing this itemÕs shared link and associated permissions',
+          'description' => 'An object representing this item\'s shared link and associated permissions',
           'location' => 'json',
           'type' => 'object',
           'properties' => array(
@@ -349,7 +349,7 @@ return array(
       ),
     ),
     'UpdateFile' => array(
-      'description' => 'Used to update individual or multiple fields in the file object, including renaming the file, changing itÕs description, and creating a shared link for the file.',
+      'description' => 'Used to update individual or multiple fields in the file object, including renaming the file, changing it\'s description, and creating a shared link for the file.',
       'httpMethod' => 'PUT',
       'uri' => 'https://api.box.com/2.0/files/{id}',
       'parameters' => array(
@@ -360,7 +360,7 @@ return array(
           'required' => true,
         ),
         'if-match' => array(
-          'description' => 'This is in the ÔetagÕ field of the file object.',
+          'description' => 'This is in the "etag" field of the file object.',
           'location' => 'header',
           'type' => 'string',
           'sentAs' => 'If-Match'
@@ -388,7 +388,7 @@ return array(
           ),
         ),
         'shared_link' => array(
-          'description' => 'An object representing this itemÕs shared link and associated permissions',
+          'description' => 'An object representing this item\'s shared link and associated permissions',
           'location' => 'json',
           'type' => 'object',
           'properties' => array(
@@ -447,26 +447,45 @@ return array(
       'uri' => 'https://uploads.box.com/api/2.0/files/content',
       'parameters' => array(
         'filename' => array(
-          'description' => 'The name of the file to be uploaded',
+          'description' => 'The name of the file to be uploaded.',
           'location' => 'postFile',
           'type' => 'any',
           'required' => true,
         ),
         'parent_id' => array(
-          'description' => 'The ID of folder where this file should be uploaded',
+          'description' => 'The ID of folder where this file should be uploaded.',
           'location' => 'postField',
           'type' => 'string',
           'required' => true,
         ),
         'content_created_at' => array(
-          'description' => 'The time this file was created on the userÕs machine.',
+          'description' => 'The time this file was created on the user\'s machine.',
           'location' => 'postField',
           'type' => 'string'
         ),
         'content_modified_at' => array(
-          'description' => 'The time this file was last modified on the userÕs machine.',
+          'description' => 'The time this file was last modified on the user\'s machine.',
           'location' => 'postField',
           'type' => 'string'
+        ),
+      ),
+    ),
+    'DeleteFile' => array(
+      'description' => 'Used to delete a file.',
+      'httpMethod' => 'DELETE',
+      'uri' => 'https://api.box.com/2.0/files/{id}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder to be deleted.',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'if-match' => array(
+          'description' => 'This is in the "etag" field of the file object.',
+          'location' => 'header',
+          'type' => 'string',
+          'sentAs' => 'If-Match'
         ),
       ),
     ),
