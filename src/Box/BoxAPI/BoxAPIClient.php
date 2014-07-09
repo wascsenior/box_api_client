@@ -230,4 +230,23 @@ class BoxAPIClient extends Client
         return $this->execute($command);
     }
 
+    /**
+     * Used to retrieve the metadata about a shared item when only given a shared link.
+     * Because of varying permission levels for shared links, a password may be required
+     * to retrieve the shared item.
+     *
+     * @param string $shared_link The shared link for this item.
+     * @param string $password The password for this shared link.
+     * @return array|mixed
+     */
+    public function getSharedItem($shared_link, $password = NULL)
+    {
+        $params['shared_link'] = 'shared_link=' . $shared_link;
+        if ($password) {
+            $params['shared_link'] = '&shared_link_password=' . $password;
+        }
+        $command = $this->getCommand('GetSharedItem', $params);
+        return $this->execute($command);
+    }
+
 }

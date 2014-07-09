@@ -489,5 +489,22 @@ return array(
         ),
       ),
     ),
+
+    // Shared items
+    'GetSharedItem' => array(
+      'description' => 'Used to get information about a sharing link.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/shared_items',
+      'parameters' => array(
+        'shared_link' => array(
+          'description' => 'Sharing link.',
+          'location' => 'header',
+          'type' => 'string',
+          'sentAs' => 'BoxApi',
+          'required' => true,
+        ),
+      ),
+    ),
+
   ),
 );
