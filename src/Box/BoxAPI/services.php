@@ -346,6 +346,11 @@ return array(
           'type' => 'string',
           'required' => true,
         ),
+        'fields' => array(
+          'description' => 'Attribute(s) to include in the response',
+          'location' => 'query',
+          'type' => 'string',
+        ),
       ),
     ),
     'UpdateFile' => array(
@@ -502,6 +507,11 @@ return array(
           'type' => 'string',
           'sentAs' => 'BoxApi',
           'required' => true,
+        ),
+        'fields' => array(
+          'description' => 'Attribute(s) to include in the response',
+          'location' => 'query',
+          'type' => 'string',
         ),
       ),
     ),

@@ -182,9 +182,13 @@ class BoxAPIClient extends Client
      * @param integer $id The file ID.
      * @return array|mixed
      */
-    public function getFile($id)
+    public function getFile($id, $fields = NULL)
     {
-        $command = $this->getCommand('GetFile', array('id' => $id));
+        $params['id'] = $id;
+        if ($fields) {
+            $params['fields'] = $fields;
+        }
+        $command = $this->getCommand('GetFile', $params);
         return $this->execute($command);
     }
 
@@ -239,11 +243,14 @@ class BoxAPIClient extends Client
      * @param string $password The password for this shared link.
      * @return array|mixed
      */
-    public function getSharedItem($shared_link, $password = NULL)
+    public function getSharedItem($shared_link, $password = NULL, $fields = NULL)
     {
         $params['shared_link'] = 'shared_link=' . $shared_link;
         if ($password) {
             $params['shared_link'] = '&shared_link_password=' . $password;
+        }
+        if ($fields) {
+            $params['fields'] = $fields;
         }
         $command = $this->getCommand('GetSharedItem', $params);
         return $this->execute($command);
