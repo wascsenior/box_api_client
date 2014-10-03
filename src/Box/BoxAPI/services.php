@@ -14,7 +14,7 @@ return array(
         'id' => array(
           'description' => 'The ID of the folder to be retrieved',
           'location' => 'uri',
-          'type' => 'string',
+          'pepe' => 'string',
           'required' => true,
         ),
         'fields' => array(
@@ -512,6 +512,61 @@ return array(
           'description' => 'Attribute(s) to include in the response',
           'location' => 'query',
           'type' => 'string',
+        ),
+      ),
+    ),
+
+    // METADATA API
+
+    'MetaGetType' => array(
+      'description' => 'Used to retrieve the metadata type instance for a corresponding Box file.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/files/{id}/metadata/{type}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'File ID',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'type' => array(
+          'description' => 'Custom value defined by a user or application.',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+      ),
+    ),
+
+    'MetaUpdateType' => array(
+      'description' => 'Used to update the metadata type instance for a corresponding Box file.',
+      'httpMethod' => 'PUT',
+      'uri' => 'https://api.box.com/2.0/files/{id}/metadata/{type}',
+      'parameters' => array(
+        'content-type' => array(
+          'location' => 'header',
+          'static' => true,
+          'required' => true,
+          'default' => 'application/json-patch+json',
+          'sentAs' => 'Content-Type',
+        ),
+        'id' => array(
+          'description' => 'File ID',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'type' => array(
+          'description' => 'Custom value defined by a user or application.',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'operations' => array(
+          'description' => 'Array of operations, JSON encoded.',
+          'location' => 'body',
+          'required' => true,
+          'filters' => array('json_encode'),
         ),
       ),
     ),
