@@ -262,6 +262,14 @@ class BoxAPIClient extends Client
       return $this->execute($command);
     }
 
+    public function metaCreateType($id, $type, $values)
+    {
+      $params = array('id' => $id, 'type' => $type);
+      $params = $params + $values;
+      $command = $this->getCommand('MetaCreateType', $params);
+      return $this->execute($command);
+    }
+
     public function metaUpdateType($id, $type, $operations)
     {
         $command = $this->getCommand('MetaUpdateType', array('id' => $id, 'type' => $type, 'operations' => $operations));

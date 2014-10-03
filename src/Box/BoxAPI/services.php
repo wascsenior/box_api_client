@@ -538,6 +538,30 @@ return array(
       ),
     ),
 
+    'MetaCreateType' => array(
+      'description' => 'Used to create the metadata type instance for a corresponding Box file.',
+      'httpMethod' => 'POST',
+      'uri' => 'https://api.box.com/2.0/files/{id}/metadata/{type}',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'File ID',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'type' => array(
+          'description' => 'Custom value defined by a user or application.',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+      ),
+      'additionalParameters' => array(
+        'location' => 'json',
+        'required' => true,
+      ),
+    ),
+
     'MetaUpdateType' => array(
       'description' => 'Used to update the metadata type instance for a corresponding Box file.',
       'httpMethod' => 'PUT',
