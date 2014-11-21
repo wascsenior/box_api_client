@@ -14,7 +14,7 @@ return array(
         'id' => array(
           'description' => 'The ID of the folder to be retrieved',
           'location' => 'uri',
-          'pepe' => 'string',
+          'type' => 'string',
           'required' => true,
         ),
         'fields' => array(
