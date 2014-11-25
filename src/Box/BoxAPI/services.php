@@ -449,29 +449,19 @@ return array(
     'UploadFile' => array(
       'description' => 'Use the Uploads API to allow users to add a new file.',
       'httpMethod' => 'POST',
-      'uri' => 'https://uploads.box.com/api/2.0/files/content',
+      'uri' => 'https://upload.box.com/api/2.0/files/content',
       'parameters' => array(
-        'filename' => array(
-          'description' => 'The name of the file to be uploaded.',
-          'location' => 'postFile',
-          'type' => 'any',
-          'required' => true,
-        ),
-        'parent_id' => array(
-          'description' => 'The ID of folder where this file should be uploaded.',
+        'attributes' => array(
+          'description' => 'A JSON formatted set of file-attributes that includes: name, parent, content_created_at, content_modified_at.',
           'location' => 'postField',
           'type' => 'string',
           'required' => true,
         ),
-        'content_created_at' => array(
-          'description' => 'The time this file was created on the user\'s machine.',
-          'location' => 'postField',
-          'type' => 'string'
-        ),
-        'content_modified_at' => array(
-          'description' => 'The time this file was last modified on the user\'s machine.',
-          'location' => 'postField',
-          'type' => 'string'
+        'file' => array(
+          'description' => 'The file to be uploaded.',
+          'location' => 'postFile',
+          'type' => 'any',
+          'required' => true,
         ),
       ),
     ),

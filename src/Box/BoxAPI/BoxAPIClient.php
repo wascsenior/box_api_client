@@ -210,13 +210,15 @@ class BoxAPIClient extends Client
     /**
      * Upload a file.
      *
-     * @param string $file The path to the file to be uploaded.
+     * @param string $filename The name of the file to be uploaded.
      * @param string $parent_id The ID of the parent folder.
+     * @param string $filepath The path to the file to be uploaded.
      * @return array|mixed
      */
-    public function uploadFile($file, $parent_id)
+    public function uploadFile($filename, $parent_id, $filepath)
     {
-        $command = $this->getCommand('UploadFile', array('parent_id' => $parent_id, 'filename' => $file));
+        $params =  json_encode(array('name' => $filename, 'parent' => array('id' => $parent_id)));
+        $command = $this->getCommand('UploadFile', array('attributes' => $params, 'file' => $filepath));
         return $this->execute($command);
     }
 
