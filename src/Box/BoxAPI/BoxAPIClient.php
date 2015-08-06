@@ -243,6 +243,7 @@ class BoxAPIClient extends Client
      *
      * @param string $shared_link The shared link for this item.
      * @param string $password The password for this shared link.
+     * @param string|array $fields A string of comma separated fields, or an array of individual fields..
      * @return array|mixed
      */
     public function getSharedItem($shared_link, $password = NULL, $fields = NULL)
@@ -251,7 +252,8 @@ class BoxAPIClient extends Client
         if ($password) {
             $params['shared_link'] = '&shared_link_password=' . $password;
         }
-        if ($fields) {
+        if (!empty($fields)) {
+            $fields = is_array($fields) ? implode(',', $fields) : $fields;
             $params['fields'] = $fields;
         }
         $command = $this->getCommand('GetSharedItem', $params);
