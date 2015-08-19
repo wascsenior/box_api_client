@@ -237,6 +237,27 @@ class BoxAPIClient extends Client
     }
 
     /**
+     * Comments on a file.
+     *
+     * @param integer $id The file ID.
+     * @param integer $limit Defines the maximum number of records that will be returned on a page.
+     * @param integer $offset Offset is zero based.
+     * @return array|mixed
+     */
+    public function getFileComments($id, $limit = NULL, $offset = NULL)
+    {
+        $params = array('id' => $id);
+        if ($limit) {
+          $params['limit'] = $limit;
+        }
+        if ($offset) {
+          $params['offset'] = $offset;
+        }
+        $command = $this->getCommand('GetFileComments', $params);
+        return $this->execute($command);
+    }
+
+    /**
      * Used to retrieve the metadata about a shared item when only given a shared link.
      * Because of varying permission levels for shared links, a password may be required
      * to retrieve the shared item.

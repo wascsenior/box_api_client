@@ -506,6 +506,33 @@ return array(
       ),
     ),
 
+    // Comments.
+    'GetFileComments' => array(
+      'description' => 'Retrieves the comments on a particular file, if any exist.',
+      'httpMethod' => 'GET',
+      'uri' => 'https://api.box.com/2.0/files/{id}/comments',
+      'parameters' => array(
+        'id' => array(
+          'description' => 'The ID of the folder.',
+          'location' => 'uri',
+          'type' => 'string',
+          'required' => true,
+        ),
+        'limit' => array(
+          'description' => 'Limit number of items returned.',
+          'location' => 'query',
+          'type' => 'string',
+          'required' => false,
+        ),
+        'offset' => array(
+          'description' => 'Offset, zero based.',
+          'location' => 'query',
+          'type' => 'string',
+          'required' => false,
+        ),
+      ),
+    ),
+
     // METADATA API
 
     'MetaGetType' => array(
